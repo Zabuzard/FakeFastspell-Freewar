@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        FakeFastspell - Freewar
 // @namespace   Zabuza
-// @description Enables the use of fastspells 5 to 9 when the user is no sponsor.
+// @description Enables the use of fastspells 5 to 9 when the user is no sponsor. Further the script allows the user to extend the fastspells by infinitely many.
 // @include     *.freewar.de/freewar/internal/item.php*
 // @version     1
 // @require http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
