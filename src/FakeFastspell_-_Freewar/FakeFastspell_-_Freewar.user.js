@@ -229,18 +229,21 @@ var fastspellData = new Object();
 // Set 1
 fastspellData['1'] = new Object();
 fastspellData['1']['5'] = [247183411, 'Portalmaschine'];
-fastspellData['1']['6'] = [247183543, 'Barubeutel'];
+fastspellData['1']['6'] = [247183409, 'Stab der Magie'];
 fastspellData['1']['7'] = [247183757, 'Schriftrolle der Börse'];
 fastspellData['1']['8'] = [247183437, 'Fels der Phasenselbstheilung'];
 fastspellData['1']['9'] = [247183417, 'Deku-Blatt'];
 
 // Set 2
 fastspellData['2'] = new Object();
-fastspellData['2']['5'] = [247183411, 'PortalmaschineHahahahahaha'];
-fastspellData['2']['6'] = [247183543, 'Barubeutel'];
-fastspellData['2']['7'] = [247183757, 'Schriftrolle der Börse'];
-fastspellData['2']['8'] = [247183437, 'Fels der Phasenselbstheilung'];
-fastspellData['2']['9'] = [247183417, 'Deku-BlattHahahahahahaha'];
+fastspellData['2']['1'] = [247183791, 'Stab des Handels'];
+fastspellData['2']['2'] = [247183543, 'Barubeutel'];
+fastspellData['2']['3'] = [247183574, 'Zauberkugel-Klebemaschine'];
+fastspellData['2']['4'] = [247183515, 'eisiger Teleporter'];
+fastspellData['2']['5'] = [247183431, 'Schriftrolle der Lebenden'];
+fastspellData['2']['6'] = [247183539, 'Stab des Wissens'];
+fastspellData['2']['7'] = [247183458, 'Korallen-Seelen-Misch-O-Mat'];
+fastspellData['2']['8'] = [247183405, 'Makibishi'];
 
 // Start the routine function
 routine();
