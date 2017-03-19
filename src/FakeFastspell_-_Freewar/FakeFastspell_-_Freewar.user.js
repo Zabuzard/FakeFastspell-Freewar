@@ -60,20 +60,58 @@ function isFastspellMenuPresent() {
 }
 
 /*
- * Gets the number of the current used fastspell set. The number is saved as cookie.
- * If the cookie is not present it will be created and the set with number 1 is used.
+ * Checks whether the browser does support webstorage or not.
+ * @returns True if it is supported, false if not
+ */
+function isSupportingWebStorage() {
+	return typeof(Storage) !== "undefined";
+}
+
+/*
+ * Gets the number of the current used fastspell set. The number is saved as via webstorage or as cookie.
+ * If the value is not present it will be created and the set with number 1 is used.
  * @returns The number of the current used fastspell set
  */
 function getCurrentFastspellSetNumber() {
-	var value = getCookie('freewarFakeFastspellSetNumber');
+	var value;
+	if (isSupportingWebStorage()) {
+		// Use webstorage
+		value = localStorage.getItem('freewarFakeFastspellSetNumber');
+	} else {
+		// Fall back to cookies
+		value = getCookie('freewarFakeFastspellSetNumber');
+	}
+	
 	var valueAsNumber = parseInt(value);
 	
-	// If the cookie does not exist or contains invalid data, create it with the default set
+	// If the value does not exist or contains invalid data, create it with the default set
 	if (value == null || value == '' || valueAsNumber < 1 || valueAsNumber > 5) {
-		createCookie('freewarFakeFastspellSetNumber', '1', 365);
+		setCurrentFastspellSetNumber(1);
 		return 1;
 	} else {
 		return valueAsNumber;
+	}
+}
+
+/*
+ * Sets the number of the current used fastspell set. The number is saved via webstorage or as cookie.
+ * The number must be between 1 and 5 (both inclusive), else the function will do nothing.
+ * @param setNumber The number of the fastspell set to set, between 1 and 5 (both inclusive)
+ */
+function setCurrentFastspellSetNumber(setNumber) {
+	var valueAsNumber = parseInt(setNumber);
+	
+	// Abort if the value is invalid
+	if (setNumber == null || setNumber == '' || valueAsNumber < 1 || valueAsNumber > 5) {
+		return;
+	}
+	
+	if (isSupportingWebStorage()) {
+		// Use webstorage
+		localStorage.setItem('freewarFakeFastspellSetNumber', valueAsNumber);
+	} else {
+		// Fall back to cookies
+		createCookie('freewarFakeFastspellSetNumber', valueAsNumber + '', 365);
 	}
 }
 
@@ -183,7 +221,7 @@ function enableFastspellSets(currentSelectedSetNumber) {
 }
 
 /*
- * Selects the fastspell set with the given number. The number is saved in a cookie,
+ * Selects the fastspell set with the given number. The number is saved in via webstorage or as cookie,
  * the page is then refreshed.
  * @param event An event object with a parameter named 'data' holding a parameter 'number'
  *   which contains the number of the set to be selected
@@ -191,10 +229,10 @@ function enableFastspellSets(currentSelectedSetNumber) {
 function selectFastspellSet(event) {
 	var setNumber = event.data.number;
 	
-	// Save the selection as cookie
-	createCookie('freewarFakeFastspellSetNumber', setNumber + '', 365);
+	// Save the selection
+	setCurrentFastspellSetNumber(setNumber);
 	
-	// Refresh the page, it will render to the cookie data accordingly
+	// Refresh the page, it will render to the stored data accordingly
 	location.reload();
 }
 
@@ -229,10 +267,10 @@ var fastspellData = new Object();
 // Set 1
 fastspellData['1'] = new Object();
 fastspellData['1']['5'] = [247183411, 'Portalmaschine'];
-fastspellData['1']['6'] = [247183409, 'Stab der Magie'];
+fastspellData['1']['6'] = [247183417, 'Deku-Blatt'];
 fastspellData['1']['7'] = [247183757, 'Schriftrolle der Börse'];
 fastspellData['1']['8'] = [247183437, 'Fels der Phasenselbstheilung'];
-fastspellData['1']['9'] = [247183417, 'Deku-Blatt'];
+fastspellData['1']['9'] = [247183409, 'Stab der Magie'];
 
 // Set 2
 fastspellData['2'] = new Object();
@@ -244,6 +282,14 @@ fastspellData['2']['5'] = [247183431, 'Schriftrolle der Lebenden'];
 fastspellData['2']['6'] = [247183539, 'Stab des Wissens'];
 fastspellData['2']['7'] = [247183458, 'Korallen-Seelen-Misch-O-Mat'];
 fastspellData['2']['8'] = [247183405, 'Makibishi'];
+
+// Set 3
+fastspellData['3'] = new Object();
+fastspellData['3']['5'] = [247183411, 'Portalmaschine'];
+fastspellData['3']['6'] = [247333032, 'Pyramide der Seelen'];
+fastspellData['3']['7'] = [247183403, 'Landmaster'];
+fastspellData['3']['8'] = [247183437, 'Fels der Phasenselbstheilung'];
+fastspellData['3']['9'] = [247183409, 'Stab der Magie'];
 
 // Start the routine function
 routine();
